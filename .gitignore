@@ -1,6 +1,34 @@
 # Prerequisites
 *.d
 
+# Direktori hasil build dan compile
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Folder konfigurasi lokal Visual Studio
+.vs/
+.vscode/
+
+# File konfigurasi user (spesifik untuk komputer Anda)
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+
+# Kredensial lokal / pengaturan development
+appsettings.Development.json
+appsettings.*.json
+
+# File log dan cache
+*.log
+*.cache
+*.tmp
+
+# Mac / Linux system files (opsional)
+.DS_Store
+Thumbs.db
+
 # Compiled Object files
 *.slo
 *.lo
