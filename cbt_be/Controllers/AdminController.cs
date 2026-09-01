@@ -21,12 +21,20 @@ namespace cbt.be.Controllers
 
         [HttpGet("GetAvtivityLogs")]
         public async Task<IActionResult> GetActivityLogs([FromQuery] GetActivityLogsRequest request)
-        { 
-          
+        {
             var response = await _mediator.Send(request);
 
             return Ok(response);
         }
+
+        [HttpGet("GetListPacketUjian")]
+        public async Task<IActionResult> GetListPacketUjian([FromQuery] GetListPacketUjianRequset request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+
 
         // POST api/<ValuesController>
         [HttpPost]

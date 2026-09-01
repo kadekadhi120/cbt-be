@@ -1,5 +1,4 @@
 using cbt.be.Validator.Admin;
-
 using cbt.entity;
 using cbt.entity.Models;
 using FluentValidation;
@@ -38,6 +37,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // 4. Daftarkan FluentValidation dan MediatR
 builder.Services.AddValidatorsFromAssemblyContaining<GetActivityLogsValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<GetListPacketUjianValidator>();
 
 builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);

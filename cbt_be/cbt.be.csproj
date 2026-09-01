@@ -22,8 +22,4 @@
     <ProjectReference Include="..\cbt_entity\cbt.entity.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\ResponseModels\" />
-  </ItemGroup>
-
 </Project>
