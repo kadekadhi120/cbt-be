@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../cbt_entity/cbt.entity.csproj" Id="f3d4482a-57e1-4df0-a495-30a1251078f4" />
+  <Project Path="cbt.be.csproj" />
+</Solution>
