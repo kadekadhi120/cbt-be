@@ -12,6 +12,8 @@ public partial class ProctoringLog
 
     public Guid AttemptId { get; set; }
 
+    public ViolationType ViolationType { get; set; }
+
     public DateTime OccurredAt { get; set; }
 
     /// <summary>

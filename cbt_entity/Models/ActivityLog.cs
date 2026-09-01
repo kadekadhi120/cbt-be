@@ -10,6 +10,8 @@ public partial class ActivityLog
 {
     public Guid Id { get; set; }
 
+    public ActivityType Type { get; set; }
+
     public string Message { get; set; } = null!;
 
     public DateTime OccurredAt { get; set; }

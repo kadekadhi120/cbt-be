@@ -16,6 +16,8 @@ public partial class ExamPackage
 
     public short DurationMinutes { get; set; }
 
+    public ExamStatus Status { get; set; }
+
     public Guid CreatedBy { get; set; }
 
     public DateTime CreatedAt { get; set; }

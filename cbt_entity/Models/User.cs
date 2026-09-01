@@ -19,6 +19,10 @@ public partial class User
     /// </summary>
     public string PasswordHash { get; set; } = null!;
 
+    public UserRole Role { get; set; }
+
+    public UserStatus Status { get; set; }
+
     /// <summary>
     /// Kelas/kelompok siswa, contoh: XII IPA 1. NULL untuk admin.
     /// </summary>

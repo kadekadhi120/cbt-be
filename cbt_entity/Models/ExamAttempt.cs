@@ -18,12 +18,16 @@ public partial class ExamAttempt
 
     public DateTime? SubmittedAt { get; set; }
 
+    public AttemptStatus Status { get; set; }
+
     /// <summary>
-    /// Skor 0â€“100. NULL selama in_progress.
+    /// Skor 0–100. NULL selama in_progress.
     /// </summary>
     public short? Score { get; set; }
 
     public short TotalScore { get; set; }
+
+    public SubmitType? SubmitType { get; set; }
 
     /// <summary>
     /// Akumulasi pelanggaran anti-cheat. Force submit jika &gt; 3.

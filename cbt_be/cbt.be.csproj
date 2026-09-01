@@ -19,13 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\cbt_entity\cbt.entity.csproj" />
     <ProjectReference Include="..\cbt_entity\cbt.entity.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\ResponseModels\" />
-    <Folder Include="Models\RequestModels\" />
     <Folder Include="RequestHandler\" />
   </ItemGroup>
 
