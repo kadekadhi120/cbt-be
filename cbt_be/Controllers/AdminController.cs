@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using cbt.be.Models.RequestModels.Admin;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,18 +10,22 @@ namespace cbt.be.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        // GET: api/<ValuesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        private readonly IMediator _mediator;
+
+        public AdminController(IMediator mediator)
         {
-            return new string[] { "value1", "value2" };
+            _mediator = mediator;
         }
 
-        // GET Actifity Log
-        [HttpGet("")]
-        public string Get(int id)
-        {
-            return "value";
+
+        [HttpGet("GetAvtivityLogs")]
+        public async Task<IActionResult> GetActivityLogs([FromQuery] GetActivityLogsRequest request)
+        { 
+          
+            var response = await _mediator.Send(request);
+
+            return Ok(response);
         }
 
         // POST api/<ValuesController>
