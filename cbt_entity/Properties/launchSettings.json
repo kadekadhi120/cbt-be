@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "cbt.entity": {
+      "commandName": "Project"
+    },
+    "Profile 1": {
+      "commandName": "Executable",
+      "executablePath": "D:\\Project\\Exam\\cbt_BE\\cbt_be\\Program.cs"
+    }
+  }
+}
