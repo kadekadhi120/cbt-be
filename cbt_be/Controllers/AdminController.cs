@@ -41,6 +41,14 @@ namespace cbt.be.Controllers
             return Ok(response);
         }
 
+        [HttpGet("GetMaintanceStatus")]
+        public async Task<IActionResult> GetMaintanceStatus([FromQuery] GetMaintanceStatusRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+
+        }
+
 
     }
 }

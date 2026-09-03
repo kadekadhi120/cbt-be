@@ -31,9 +31,11 @@ namespace cbt.be.RequestHandler.Admin
                     .Where(x => x.Role == UserRole.student)
                     .CountAsync();
 
-                var totalExamAttempts = await _db.ExamAttempts.CountAsync();
+                var totalExamAttempts = await _db.ExamAttempts
+                    .Where(x => x.SubmittedAt == DateTime.Today)
+                    .CountAsync();
 
-                if(totalExamAttempts == 0)
+                if(totalExamAttempts == null)
                 {
                     totalExamAttempts = 0;
                 }
