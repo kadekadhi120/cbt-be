@@ -8,40 +8,55 @@ using cbt.be.Models.RequestModels.Admin;
 using cbt.be.Models.ResponseModels.Admin;
 using Microsoft.IdentityModel.Tokens;
 using cbt.entity;
+using cbt.be.Models.ResponseModels;
 
 namespace cbt.be.RequestHandler.Admin
 {
-    public class GetActivityLogsHandler : IRequestHandler<GetActivityLogsRequest, List<GetActivityLogsResponse>>
+    public class GetActivityLogsHandler : IRequestHandler<GetActivityLogsRequest, MainResponse<GetActivityLogsResponse>>
     {
-        private readonly AppDbContext _context;
+        private readonly AppDbContext _db;
 
-        public GetActivityLogsHandler(AppDbContext context)
+        public GetActivityLogsHandler(AppDbContext db)
         {
-            _context = context;
+            _db = db;
         }
 
-        public async Task<List<GetActivityLogsResponse>> Handle(GetActivityLogsRequest request, CancellationToken cancellationToken)
+        public async Task<MainResponse<GetActivityLogsResponse>> Handle(GetActivityLogsRequest request, CancellationToken cancellationToken)
         {
-            var data = await _context.ActivityLogs
-                .AsNoTracking()
-                .OrderByDescending(x => x.OccurredAt)
-                .Take(request.limit)
-                .Select(x => new GetActivityLogsResponse
-                {
-                    Data = new List<ActivityLogDto>
+            try
+            {
+                var activityLogs = await _db.ActivityLogs
+                    .OrderByDescending(a => a.OccurredAt)
+                    .Take(request.limit)
+                    .Select(a => new ActivityLogDto
                     {
-                        new ActivityLogDto
-                        {
-                            Id = x.Id,
-                            Type = x.Type.ToString(),
-                            Message = x.Message,
-                            OccuratedAt = x.OccurredAt
-                        }
-                    }
-                })
-                .ToListAsync(cancellationToken);
+                        Id = a.Id,
+                        Type = a.Type.ToString(),
+                        Message = a.Message,
+                        OccuratedAt = a.OccurredAt
+                    }).ToListAsync(cancellationToken);
 
-            return data;
+                return new MainResponse<GetActivityLogsResponse>
+                {
+                    Status = 200,
+                    IsSuccess = true,
+                    Message = "Activity logs retrieved successfully.",
+                    Data = new GetActivityLogsResponse
+                    {
+                        Data = activityLogs
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                return new MainResponse<GetActivityLogsResponse>
+                {
+                    Status = 500,
+                    IsSuccess = false,
+                    Message = $"An error occurred while retrieving activity logs: {ex.Message}",
+                    Data = null
+                };
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace cbt.be.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/admin/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
     {
@@ -31,6 +31,13 @@ namespace cbt.be.Controllers
         public async Task<IActionResult> GetListPacketUjian([FromQuery] GetListPacketUjianRequset request)
         {
             var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("GetDataDashboard")]
+        public async Task<IActionResult> GetDataDashboard([FromQuery] GetDataDashboardRequest requset)
+        {
+            var response = await _mediator.Send(requset);
             return Ok(response);
         }
 
