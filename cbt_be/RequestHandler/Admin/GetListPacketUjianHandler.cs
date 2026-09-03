@@ -1,4 +1,5 @@
 ﻿using cbt.be.Models.RequestModels.Admin;
+using cbt.be.Models.ResponseModels;
 using cbt.be.Models.ResponseModels.Admin;
 using cbt.entity;
 using MediatR;
@@ -6,36 +7,57 @@ using Microsoft.EntityFrameworkCore;
 
 namespace cbt.be.RequestHandler.Admin
 {
-    public class GetListPacketUjianHandler : IRequestHandler<GetListPacketUjianRequset, List<GetListPacketUjianResponse>>
+    public class GetListPacketUjianHandler : IRequestHandler<GetListPacketUjianRequset, MainResponse<GetListPacketUjianResponse>>
     {
-        public readonly AppDbContext _context;
+        public readonly AppDbContext _db;
 
-        public GetListPacketUjianHandler(AppDbContext context)
+        public GetListPacketUjianHandler(AppDbContext db)
         {
-            _context = context;
+            _db = db;
         }
 
-        public async Task<List<GetListPacketUjianResponse>> Handle(GetListPacketUjianRequset request, CancellationToken cancellationToken)
+        public async Task<MainResponse<GetListPacketUjianResponse>> Handle(GetListPacketUjianRequset request, CancellationToken cancellationToken)
         {
-            var data = await _context.ExamPackages
-                .AsNoTracking()
-                .OrderByDescending(x => x.CreatedAt)
-                .Take(request.limit)
-                .Select(x => new GetListPacketUjianResponse
-                {
-                    Data = new List<GetlistPacketUjianDto>
+            try
+            {
+                var data = await _db.ExamPackages
+                    .AsNoTracking()
+                    .OrderByDescending(x => x.CreatedAt)
+                    .Take(request.limit)
+                    .Select(x => new GetlistPacketUjianDto
                     {
-                        new GetlistPacketUjianDto
-                        {
-                            Id = x.Id,
-                            Title = x.Title,
-                            Status = x.Status.ToString(),
-                            Participant = x.ParticipantCount,
-                            CreatedAt = x.CreatedAt,
-                        }
+                        Id = x.Id,
+                        Title = x.Title,
+                        Status = x.Status.ToString(),
+                        Participant = x.ParticipantCount,
+                        Duration = x.DurationMinutes,
+                        Question_ammount = x.QuestionCount
+                    }).ToListAsync(cancellationToken);
+
+                return new MainResponse<GetListPacketUjianResponse>
+                {
+                    Status = 200,
+                    IsSuccess = true,
+                    Message = "Success",
+                    Data = new GetListPacketUjianResponse
+                    {
+                        Data = data
                     }
-                }).ToListAsync(cancellationToken);
-            return data;
+                };
+            }
+            catch (Exception ex)
+            {
+                return new MainResponse<GetListPacketUjianResponse>
+                {
+                    Status = 500,
+                    IsSuccess = false,
+                    Message = ex.Message,
+                    Data = null
+                };
+            }
         }
     }
 }
+            
+    
+
