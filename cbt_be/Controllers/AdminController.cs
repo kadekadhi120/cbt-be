@@ -1,4 +1,5 @@
-﻿using cbt.be.Models.RequestModels.Admin;
+﻿using cbt.be.Models.RequestModels.Admin.Dashboard;
+using cbt.be.Models.RequestModels.Admin.ManagementUjian;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,20 @@ namespace cbt.be.Controllers
         public async Task<IActionResult> GetDataDashboard([FromQuery] GetDataDashboardRequest requset)
         {
             var response = await _mediator.Send(requset);
+            return Ok(response);
+        }
+
+        [HttpGet("GetMaintanceStatus")]
+        public async Task<IActionResult> GetMaintanceStatus([FromQuery] GetMaintanceStatusRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("GetDetailListPacketUjian")]
+        public async Task<IActionResult> GetDetailDataListPacketUjian([FromQuery] GetDetailListPacketUjianRequest request)
+        {
+            var response = await _mediator.Send(request);
             return Ok(response);
         }
 

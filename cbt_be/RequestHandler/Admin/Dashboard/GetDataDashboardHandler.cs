@@ -1,12 +1,12 @@
-﻿using cbt.be.Models.RequestModels.Admin;
+﻿using cbt.be.Models.RequestModels.Admin.Dashboard;
 using cbt.be.Models.ResponseModels;
-using cbt.be.Models.ResponseModels.Admin;
+using cbt.be.Models.ResponseModels.Admin.Dashboard;
 using cbt.entity;
 using cbt.entity.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace cbt.be.RequestHandler.Admin
+namespace cbt.be.RequestHandler.Admin.Dashboard
 {
     public class GetDataDashboardHandler : IRequestHandler<GetDataDashboardRequest, MainResponse<GetDataDashboardResponse>>
     {
@@ -19,6 +19,8 @@ namespace cbt.be.RequestHandler.Admin
 
         public async Task<MainResponse<GetDataDashboardResponse>> Handle(GetDataDashboardRequest request, CancellationToken cancellationToken)
         {
+
+
             try
             {
                 var totalExamPackages = await _db.ExamPackages.CountAsync();
@@ -31,9 +33,11 @@ namespace cbt.be.RequestHandler.Admin
                     .Where(x => x.Role == UserRole.student)
                     .CountAsync();
 
-                var totalExamAttempts = await _db.ExamAttempts.CountAsync();
+                var totalExamAttempts = await _db.ExamAttempts
+                    .Where(x => x.SubmittedAt == DateTime.UtcNow)
+                    .CountAsync();
 
-                if(totalExamAttempts == 0)
+                if(totalExamAttempts == null)
                 {
                     totalExamAttempts = 0;
                 }

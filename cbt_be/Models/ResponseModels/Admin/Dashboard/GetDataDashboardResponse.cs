@@ -1,4 +1,4 @@
-﻿namespace cbt.be.Models.ResponseModels.Admin
+﻿namespace cbt.be.Models.ResponseModels.Admin.Dashboard
 {
     public class GetDataDashboardResponse
     {

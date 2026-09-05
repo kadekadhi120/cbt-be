@@ -1,4 +1,4 @@
-﻿using cbt.be.Models.RequestModels.Admin;
+﻿using cbt.be.Models.RequestModels.Admin.Dashboard;
 using FluentValidation;
 
 namespace cbt.be.Validator.Admin
