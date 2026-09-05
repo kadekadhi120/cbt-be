@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using cbt.entity.Models;
-using cbt.be.Models.RequestModels.Admin;
-using cbt.be.Models.ResponseModels.Admin;
 using Microsoft.IdentityModel.Tokens;
 using cbt.entity;
 using cbt.be.Models.ResponseModels;
+using cbt.be.Models.ResponseModels.Admin.Dashboard;
+using cbt.be.Models.RequestModels.Admin.Dashboard;
 
-namespace cbt.be.RequestHandler.Admin
+namespace cbt.be.RequestHandler.Admin.Dashboard
 {
     public class GetActivityLogsHandler : IRequestHandler<GetActivityLogsRequest, MainResponse<GetActivityLogsResponse>>
     {

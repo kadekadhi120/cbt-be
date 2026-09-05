@@ -1,10 +1,10 @@
-﻿using cbt.be.Models.RequestModels.Admin;
+﻿using cbt.be.Models.RequestModels.Admin.Dashboard;
 using cbt.be.Models.ResponseModels;
-using cbt.be.Models.ResponseModels.Admin;
+using cbt.be.Models.ResponseModels.Admin.Dashboard;
 using cbt.entity;
 using MediatR;
 
-namespace cbt.be.RequestHandler.Admin
+namespace cbt.be.RequestHandler.Admin.Dashboard
 {
     public class GetMaintanceStatusHandler : IRequestHandler<GetMaintanceStatusRequest, MainResponse<GetMaintanceStatusResponse>>
     {
