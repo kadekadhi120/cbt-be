@@ -19,6 +19,8 @@ namespace cbt.be.RequestHandler.Admin
 
         public async Task<MainResponse<GetDataDashboardResponse>> Handle(GetDataDashboardRequest request, CancellationToken cancellationToken)
         {
+
+
             try
             {
                 var totalExamPackages = await _db.ExamPackages.CountAsync();
@@ -32,7 +34,7 @@ namespace cbt.be.RequestHandler.Admin
                     .CountAsync();
 
                 var totalExamAttempts = await _db.ExamAttempts
-                    .Where(x => x.SubmittedAt == DateTime.Today)
+                    .Where(x => x.SubmittedAt == DateTime.UtcNow)
                     .CountAsync();
 
                 if(totalExamAttempts == null)
