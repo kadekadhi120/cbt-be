@@ -14,6 +14,7 @@
         public string Status { get; set; }
         public string Question_Ammount { get; set; }
         public string Participant { get; set; }
+        public List<string> TargetClasses { get; set; } = new List<string>();
 
     }
 }

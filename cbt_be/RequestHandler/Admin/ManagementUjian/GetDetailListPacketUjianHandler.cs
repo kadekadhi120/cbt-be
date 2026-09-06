@@ -30,8 +30,11 @@ namespace cbt.be.RequestHandler.Admin.ManajementUjian
                         Description = x.Description,
                         Duration_Minute = x.DurationMinutes,
                         Status = x.Status.ToString(),
+                        Question_Ammount = x.QuestionCount.ToString(),
                         Participant = x.ParticipantCount.ToString(),
-
+                        TargetClasses = x.PackageClasses
+                            .Select(pc => pc.KodeClass)
+                            .ToList()
                     }).ToListAsync(cancellationToken);
 
                 if(data == null || data.Count == 0)

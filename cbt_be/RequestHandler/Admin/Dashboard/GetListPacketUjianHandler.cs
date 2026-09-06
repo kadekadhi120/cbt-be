@@ -31,7 +31,10 @@ namespace cbt.be.RequestHandler.Admin.Dashboard
                         Status = x.Status.ToString(),
                         Participant = x.ParticipantCount,
                         Duration = x.DurationMinutes,
-                        Question_ammount = x.QuestionCount
+                        Question_ammount = x.QuestionCount,
+                        TargetClasses = x.PackageClasses
+                            .Select(pc => pc.KodeClass)
+                            .ToList()
                     }).ToListAsync(cancellationToken);
 
                 return new MainResponse<GetListPacketUjianResponse>
