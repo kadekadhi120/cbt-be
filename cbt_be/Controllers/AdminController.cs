@@ -1,4 +1,5 @@
 ﻿using cbt.be.Models.RequestModels.Admin.Dashboard;
+using cbt.be.Models.RequestModels.Admin.ManagementSiswa;
 using cbt.be.Models.RequestModels.Admin.ManagementUjian;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -49,8 +50,15 @@ namespace cbt.be.Controllers
             return Ok(response);
         }
 
-        [HttpGet("GetDetailListPacketUjian")]
+        [HttpGet("ManagementUjian/GetDetailListPacketUjian")]
         public async Task<IActionResult> GetDetailDataListPacketUjian([FromQuery] GetDetailListPacketUjianRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("ManagementSiswa/GetListDataSiswa")]
+        public async Task<IActionResult> GetListDataSiswa([FromQuery] GetListDataSiswaRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
