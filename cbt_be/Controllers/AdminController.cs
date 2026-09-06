@@ -71,6 +71,14 @@ namespace cbt.be.Controllers
             return Ok(response);
         }
 
+        [HttpGet("ManagementSiswa/GetStatusSiswa")]
+        [Tags("Admin Management Siswa")]
+        public async Task<IActionResult> GetStatusSiswa([FromQuery] GetStatusSiswaRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
         [HttpGet("ManagementSiswa/GetlistDataClass")]
         [Tags("Admin Rekap Nilai")]
         public async Task<IActionResult> GetListDataClass([FromQuery] GetListDataClassRequest request)
