@@ -63,6 +63,15 @@ namespace cbt.be.Controllers
             return Ok(response);
         }
 
+        [HttpGet("ManagementUjian/GetDetailPacketUjian")]
+        [Tags("Admin Management Ujian")]
+        public async Task<IActionResult> GetDetailPacketUjian([FromQuery] GetDetailPacketUjianRequset requset)
+        {
+            var response = await _mediator.Send(requset);
+            return Ok(response);
+        }
+
+
         [HttpGet("ManagementSiswa/GetListDataSiswa")]
         [Tags("Admin Management Siswa")]
         public async Task<IActionResult> GetListDataSiswa([FromQuery] GetListDataSiswaRequest request)

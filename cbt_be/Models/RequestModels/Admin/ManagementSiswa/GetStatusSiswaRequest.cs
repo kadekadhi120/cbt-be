@@ -6,5 +6,6 @@ namespace cbt.be.Models.RequestModels.Admin.ManagementSiswa
 {
     public class GetStatusSiswaRequest : IRequest<MainResponse<GetStatusSiswaResponse>>
     {
+
     }
 }
