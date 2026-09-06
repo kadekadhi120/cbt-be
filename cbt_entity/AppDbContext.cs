@@ -14,11 +14,15 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<AppSetting> AppSettings { get; set; }
 
+    public virtual DbSet<Class> Classes { get; set; }
+
     public virtual DbSet<ExamAttempt> ExamAttempts { get; set; }
 
     public virtual DbSet<ExamPackage> ExamPackages { get; set; }
 
     public virtual DbSet<ProctoringLog> ProctoringLogs { get; set; }
+
+    public virtual DbSet<PackageClass> PackageClasses { get; set; }
 
     public virtual DbSet<Question> Questions { get; set; }
 
@@ -208,6 +212,60 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("exam_packages_created_by_fkey");
         });
 
+        modelBuilder.Entity<PackageClass>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("package_classes_pkey");
+
+            entity.ToTable("package_classes", tb => tb.HasComment("Relasi many-to-many paket ujian dan kelas."));
+
+            entity.HasIndex(e => new { e.ExamPackageId, e.KodeClass }, "package_classes_unique").IsUnique();
+
+            entity.HasIndex(e => e.ExamPackageId, "idx_package_classes_exam");
+
+            entity.HasIndex(e => e.KodeClass, "idx_package_classes_kode");
+
+            entity.Property(e => e.Id)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("id");
+            entity.Property(e => e.KodeClass)
+                .HasMaxLength(10)
+                .HasComment("Kode kelas dari tabel classes.")
+                .HasColumnName("kode_class");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.ExamPackageId).HasColumnName("exam_package_id");
+
+            entity.HasOne(d => d.ExamPackage).WithMany(p => p.PackageClasses)
+                .HasForeignKey(d => d.ExamPackageId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("package_classes_exam_package_id_fkey");
+
+            entity.HasOne(d => d.Class).WithMany(p => p.PackageClasses)
+                .HasForeignKey(d => d.KodeClass)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("package_classes_kode_class_fkey");
+        });
+
+        modelBuilder.Entity<Class>(entity =>
+        {
+            entity.HasKey(e => e.KodeClass).HasName("classes_pkey");
+
+            entity.ToTable("classes", tb => tb.HasComment("Master data kelas yang tersedia di platform."));
+
+            entity.Property(e => e.KodeClass)
+                .HasMaxLength(10)
+                .HasComment("Kode unik kelas, contoh: IPA1, IPS2.")
+                .HasColumnName("kode_class");
+            entity.Property(e => e.ClassName)
+                .HasMaxLength(50)
+                .HasComment("Nama tampil kelas, contoh: XII IPA 1.")
+                .HasColumnName("class_name");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+        });
+
         modelBuilder.Entity<ProctoringLog>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("proctoring_logs_pkey");
@@ -366,9 +424,14 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("id");
             entity.Property(e => e.AvatarUrl).HasColumnName("avatar_url");
             entity.Property(e => e.Class)
-                .HasMaxLength(50)
-                .HasComment("Kelas/kelompok siswa, contoh: XII IPA 1. NULL untuk admin.")
+                .HasMaxLength(10)
+                .HasComment("Kode kelas dari tabel classes (FK). NULL untuk admin.")
                 .HasColumnName("class");
+
+            entity.HasOne(d => d.ClassNavigation).WithMany()
+                .HasForeignKey(d => d.Class)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("users_class_fkey");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnName("created_at");

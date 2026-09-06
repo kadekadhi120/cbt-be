@@ -13,5 +13,6 @@
         public int Participant { get; set; }
         public int Duration { get; set; }
         public int Question_ammount { get; set; }
+        public List<string> TargetClasses { get; set; } = new List<string>();
     }
 }

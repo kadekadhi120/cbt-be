@@ -21,18 +21,19 @@ namespace cbt.be.RequestHandler.Admin.ManagementSiswa
         {
             try
             {
-                var dataSiswa = await _db.Users
-                    .AsNoTracking()
-                    .Where(u => u.Role == UserRole.student)
-                    .Select(u => new GetListDataSiswaDto
-                    {
-                        Id = u.Id,
-                        Name = u.Name,
-                        Email = u.Email,
-                        Kelas = u.Class,
-                        Status = u.Status.ToString(),
-                    })
-                    .ToListAsync(cancellationToken);
+                var querry = from u in _db.Users.AsNoTracking()
+                                where u.Role == UserRole.student
+                                join c in _db.Classes.AsNoTracking() on u.Class equals c.KodeClass
+                                select new GetListDataSiswaDto
+                                {
+                                    Id = u.Id,
+                                    Name = u.Name,
+                                    Email = u.Email,
+                                    Class = c.ClassName,
+                                    Status = u.Status.ToString()
+                                };
+
+                var dataSiswa = await querry.ToListAsync(cancellationToken);
 
                 if (dataSiswa == null)
                 {

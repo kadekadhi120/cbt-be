@@ -40,5 +40,7 @@ public partial class ExamPackage
 
     public virtual ICollection<ExamAttempt> ExamAttempts { get; set; } = new List<ExamAttempt>();
 
+    public virtual ICollection<PackageClass> PackageClasses { get; set; } = new List<PackageClass>();
+
     public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
 }

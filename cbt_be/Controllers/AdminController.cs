@@ -22,6 +22,7 @@ namespace cbt.be.Controllers
 
 
         [HttpGet("GetAvtivityLogs")]
+        [Tags("Admin Dashboard")]
         public async Task<IActionResult> GetActivityLogs([FromQuery] GetActivityLogsRequest request)
         {
             var response = await _mediator.Send(request);
@@ -30,6 +31,7 @@ namespace cbt.be.Controllers
         }
 
         [HttpGet("GetListPacketUjian")]
+        [Tags("Admin Dashboard")]
         public async Task<IActionResult> GetListPacketUjian([FromQuery] GetListPacketUjianRequset request)
         {
             var response = await _mediator.Send(request);
@@ -37,6 +39,7 @@ namespace cbt.be.Controllers
         }
 
         [HttpGet("GetDataDashboard")]
+        [Tags("Admin Dashboard")]
         public async Task<IActionResult> GetDataDashboard([FromQuery] GetDataDashboardRequest requset)
         {
             var response = await _mediator.Send(requset);
@@ -44,6 +47,7 @@ namespace cbt.be.Controllers
         }
 
         [HttpGet("GetMaintanceStatus")]
+        [Tags("Admin Dashboard")]
         public async Task<IActionResult> GetMaintanceStatus([FromQuery] GetMaintanceStatusRequest request)
         {
             var response = await _mediator.Send(request);
@@ -51,6 +55,7 @@ namespace cbt.be.Controllers
         }
 
         [HttpGet("ManagementUjian/GetDetailListPacketUjian")]
+        [Tags("Admin Management Ujian")]
         public async Task<IActionResult> GetDetailDataListPacketUjian([FromQuery] GetDetailListPacketUjianRequest request)
         {
             var response = await _mediator.Send(request);
@@ -58,6 +63,7 @@ namespace cbt.be.Controllers
         }
 
         [HttpGet("ManagementSiswa/GetListDataSiswa")]
+        [Tags("Admin Management Siswa")]
         public async Task<IActionResult> GetListDataSiswa([FromQuery] GetListDataSiswaRequest request)
         {
             var response = await _mediator.Send(request);

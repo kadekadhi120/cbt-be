@@ -24,7 +24,7 @@ public partial class User
     public UserStatus Status { get; set; }
 
     /// <summary>
-    /// Kelas/kelompok siswa, contoh: XII IPA 1. NULL untuk admin.
+    /// Kode kelas dari tabel classes (FK). NULL untuk admin.
     /// </summary>
     public string? Class { get; set; }
 
@@ -33,6 +33,8 @@ public partial class User
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
+
+    public virtual Class? ClassNavigation { get; set; }
 
     public virtual ICollection<ActivityLog> ActivityLogs { get; set; } = new List<ActivityLog>();
 
