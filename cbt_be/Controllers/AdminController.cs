@@ -1,6 +1,7 @@
 ﻿using cbt.be.Models.RequestModels.Admin.Dashboard;
 using cbt.be.Models.RequestModels.Admin.ManagementSiswa;
 using cbt.be.Models.RequestModels.Admin.ManagementUjian;
+using cbt.be.Models.RequestModels.Admin.RekapNilai;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,6 +71,13 @@ namespace cbt.be.Controllers
             return Ok(response);
         }
 
+        [HttpGet("ManagementSiswa/GetlistDataClass")]
+        [Tags("Admin Rekap Nilai")]
+        public async Task<IActionResult> GetListDataClass([FromQuery] GetListDataClassRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
 
     }
 }
