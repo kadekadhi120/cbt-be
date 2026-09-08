@@ -80,6 +80,14 @@ namespace cbt.be.Controllers
             return Ok(response);
         }
 
+        [HttpPost("ManagementUjian/UpdateClassPacketUjian")]
+        [Tags("Admin Management Ujian")]
+        public async Task<IActionResult> UpdateClassPacketUjian([FromQuery] UpdateClassPacketUjianRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
         [HttpGet("ManagementSiswa/GetListDataSiswa")]
         [Tags("Admin Management Siswa")]
         public async Task<IActionResult> GetListDataSiswa([FromQuery] GetListDataSiswaRequest request)
