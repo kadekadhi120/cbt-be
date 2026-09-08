@@ -22,7 +22,7 @@ namespace cbt.be.RequestHandler.Admin.ManajementUjian
             try
             {
                 var data = await _db.ExamPackages
-                    .AsNoTracking()
+                    .AsNoTracking() 
                     .Select(x => new GetDetailListPacketUjianDto
                      {
                         Id = x.Id,
