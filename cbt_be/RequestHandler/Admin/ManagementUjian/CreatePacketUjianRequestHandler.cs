@@ -1,5 +1,6 @@
 ﻿using cbt.be.Models.RequestModels.Admin.ManagementUjian;
 using cbt.be.Models.ResponseModels;
+using cbt.be.Models.ResponseModels.Admin.ManagementUjian;
 using cbt.entity;
 using cbt.entity.Models;
 using MediatR;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace cbt.be.RequestHandler.Admin.ManagementUjian
 {
-    public class CreatePacketUjianRequestHandler : IRequestHandler<CreatePacketUjianRequest, MainResponse<bool>>
+    public class CreatePacketUjianRequestHandler : IRequestHandler<CreatePacketUjianRequest, MainResponse<CreatePacketUjianResponse>>
     {
         public readonly AppDbContext _db;
         public readonly IHttpContextAccessor _httpContextAccessor;
@@ -18,7 +19,7 @@ namespace cbt.be.RequestHandler.Admin.ManagementUjian
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<MainResponse<bool>> Handle(CreatePacketUjianRequest request, CancellationToken cancellationToken)
+        public async Task<MainResponse<CreatePacketUjianResponse>> Handle(CreatePacketUjianRequest request, CancellationToken cancellationToken)
         {
             try
             {
@@ -55,22 +56,28 @@ namespace cbt.be.RequestHandler.Admin.ManagementUjian
 
                 await _db.SaveChangesAsync(cancellationToken);
 
-                return new MainResponse<bool>
+                return new MainResponse<CreatePacketUjianResponse>
                 {
                     Status = 200,
                     IsSuccess = true,
-                    Message = "Success"
+                    Message = "Success",
+                    Data = new CreatePacketUjianResponse
+                    {
+                        PacketName = request.Title,
+                        Message = "Packet Ujian Berhasil Di Tambahkan",
+                    }
+
                 };
 
             }
             catch (Exception ex)
             {
-                return new MainResponse<bool>
+                return new MainResponse<CreatePacketUjianResponse>
                 {
                     Status = 500,
                     IsSuccess = false,
                     Message = ex.Message,
-                    Data = false
+                    Data = null
                 };
 
             }

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace cbt.be.Models.RequestModels.Admin.ManagementUjian
 {
-    public class CreatePacketUjianRequest : IRequest<MainResponse<bool>>
+    public class CreatePacketUjianRequest : IRequest<MainResponse<CreatePacketUjianResponse>>
     {
         public string Title { get; set; }
         public string Description { get; set; }
