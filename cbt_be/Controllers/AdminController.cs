@@ -4,6 +4,7 @@ using cbt.be.Models.RequestModels.Admin.ManagementUjian;
 using cbt.be.Models.RequestModels.Admin.RekapNilai;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Formats.Asn1;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -58,6 +59,38 @@ namespace cbt.be.Controllers
         [HttpGet("ManagementUjian/GetDetailListPacketUjian")]
         [Tags("Admin Management Ujian")]
         public async Task<IActionResult> GetDetailDataListPacketUjian([FromQuery] GetDetailListPacketUjianRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("ManagementUjian/GetDetailPacketUjian")]
+        [Tags("Admin Management Ujian")]
+        public async Task<IActionResult> GetDetailPacketUjian([FromQuery] GetDetailPacketUjianRequset request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("ManagementUjian/UpdateStatusPacketUjian")]
+        [Tags("Admin Management Ujian")]
+        public async Task<IActionResult> UpdateStatusPacketUjian([FromQuery] UpdateStatusPacketUjianRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("ManagementUjian/UpdateClassPacketUjian")]
+        [Tags("Admin Management Ujian")]
+        public async Task<IActionResult> UpdateClassPacketUjian([FromQuery] UpdateClassPacketUjianRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("ManagementUjian/CreatePacketUjian")]
+        [Tags("Admin Management Ujian")]
+        public async Task<IActionResult> CreatePacketUjian([FromQuery] CreatePacketUjianRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);

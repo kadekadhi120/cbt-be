@@ -14,11 +14,11 @@ public partial class ExamPackage
 
     public string Description { get; set; } = null!;
 
-    public short DurationMinutes { get; set; }
+    public int DurationMinutes { get; set; }
 
     public ExamStatus Status { get; set; }
 
-    public Guid CreatedBy { get; set; }
+    public string CreatedBy { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
